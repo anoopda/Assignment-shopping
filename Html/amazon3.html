@@ -1,0 +1,280 @@
+<html>
+<head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src= "/home/anoop/Desktop/Assignments/shopping/jsonfiles/shoplist.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+<script src="/home/anoop/Desktop/Assignments/shopping/jsonfiles/productcat.js"> </script>
+</head>
+<body>
+
+
+<button onclick ="fp()">FindProducts</button>
+<button onclick="submit()">Submit</button>
+<button onclick="price()">Price</button>
+
+<div id= "group"></div>
+
+<div  id  = "list">
+
+
+			<div id= "sublist"></div>
+
+
+ </div>
+
+
+
+<script>
+
+var  check_prior=[];
+var  checkedlist =[];
+var chkout =[];
+var total=0;
+var $results1 = $('#sublist');
+
+
+// function price(){
+// 	var i=0;
+
+// _.each (shoplist, function(num)
+
+// 		{ 
+// 						_.each(product, function(val)
+// 					{
+						
+// 						if((chkout[i] == num.id) && (val.name == num.name))
+// 						{		
+// 						total += num.qty*val.price;
+// 						console.log(total);
+						
+// 						}
+// 						i++;
+
+// 					})
+
+// 		})
+
+// document.write(total);
+
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function fp()
+{
+	
+
+_.each (shoplist, function(num)
+
+		{ 
+						_.filter(product, function(val)
+					{
+						
+						if( val.name == num.name)
+
+						{
+							check_prior.push({name:val.name,id: val.id,color: val.color});
+
+							 // var group = _.groupBy(check_prior, num.name);
+						}
+						
+
+					})
+
+		})
+
+
+				
+
+
+						grouped = _.groupBy(check_prior,"name");
+						_.each(grouped, function(item) {
+											item.selected = false;
+														});
+
+
+						var $results = $('#list');
+
+						var key, i, j;
+						for (key in grouped) {
+						if ( ! grouped.hasOwnProperty(key) ) {
+						continue;
+						}
+
+						
+						var pro= _.template("<h3> <%= name%> <h3> ");
+						 
+						  // pro({ name: key });
+						  console.log(pro);
+						  $results.append(	  pro({ name: key }));
+						 
+					
+
+						// $results.append('<h3>' + key + '</h3>');
+						for(i = 0, j = grouped[key].length; i< j; i++) {
+					
+						
+					
+						// $results.append('<input type= "checkbox" id= '+ grouped[key][i].id +'  >'
+ 					// 	+ grouped[key][i].id +  grouped[key][i].color +  grouped[key][i].name  )
+
+
+
+
+
+						 var items= _.template(  ' <input type ="checkbox" id = '+grouped[key][i].id +'> <%= itemname%> </input>'   ) ;
+
+
+						 $results.append(  items({ itemname:  (grouped[key][i].id  + grouped[key][i].color +  grouped[key][i].name )}     )      );
+					
+
+					
+						}
+
+// 					$gro.append(pro);	
+			}	
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				// 	var output = ""; 
+				// 	_.each (check_prior, function(num)
+				// 	{
+
+  		// 			 output+='<div><input type="checkbox" name="chckchild"  id="'+num.id+'">'+'</div>';
+
+
+				// 	})
+
+				// $('#list').empty();
+				// $('#list').append(output);
+
+
+
+
+// }
+
+
+function submit(){
+
+
+					
+
+					
+					$("input:checked").each(function(){            
+
+					              
+					               console.log(this.id);
+					               chkout.push(this.id);
+					               console.log(chkout);
+					           });
+
+
+
+						// $("body").append(chkout )
+													
+}
+
+
+
+
+
+// function submit()
+// 				{
+
+
+// 					for(i = 0, j = grouped[key].length; i< j; i++)
+// 					{
+// 						if(grouped[key][i]==)
+
+
+// 					}	
+
+
+
+// 				}
+
+
+
+function price(){
+	var i=0;
+
+_.each (chkout, function(val2)
+
+		{ 
+						_.each(product, function(val)
+					{
+						
+						//if((chkout[i] == num.id) && (val.name == num.name))
+						if(val2==val.id)
+						{
+							_.each(shoplist,function(num)
+							{
+								
+								if(val.name==num.name)
+								{	
+								var  qty1 = parseFloat(num.qty);
+								var price1= parseFloat(val.price);			
+								document.write("Product:"+val.name+"<br>"+"Color:"+val.color+"<br>"+"Price:"+val.price+"<br>"+"Qty:"+num.qty+"<br>"+"<br>");
+								total += (qty1*price1);
+								}
+						
+							})
+						
+						}
+						
+
+					})
+
+		})
+
+
+document.write(total);
+
+
+}
+
+
+
+
+
+
+
+
+ 
+</script>
+</body>
+</html>
